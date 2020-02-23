@@ -1,0 +1,15 @@
+## Interface: 11303
+## Title: BetterChannel
+## Title-zhCN: 聊天频道过滤器
+## Author: ta7sudan
+## Version: v0.1.0
+## SavedVariables: BetterChannelGlobalDB
+## SavedVariablesPerCharacter: BetterChannelCharacterDB
+## Notes: Chat channel filter
+## Notes-zhCN: 聊天频道过滤器, 过滤各种垃圾信息
+## X-Category: Chat
+## X-License: GPL v3
+## X-Localizations: enUS, zhCN
+
+util.lua
+BetterChannel.lua
