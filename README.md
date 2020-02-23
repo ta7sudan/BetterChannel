@@ -3,6 +3,17 @@
 
 
 
+## 主要功能
+
+* 对玩家刷屏行为限流, 默认 1 分钟一条, 暂时不可修改, 后续考虑提供修改方式
+* 支持用户名屏蔽, 突破 BLZ 用户名屏蔽数量限制
+* 支持关键词屏蔽
+* 支持正则表达式屏蔽(WIP)
+* 支持特定频道的用户名, 关键词屏蔽和正则表达式(WIP)
+* 支持账号下多角色共享的屏蔽列表
+
+
+
 ## 下载
 
 [下载地址](https://github.com/ta7sudan/BetterChannel/releases), 看不懂的点[这里](https://codeload.github.com/ta7sudan/BetterChannel/zip/v0.1.0)
