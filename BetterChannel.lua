@@ -24,7 +24,7 @@ local global = select(2, ...);
 local trim, split, setTimeout = global.util.trim, global.util.split, global.util.setTimeout;
 local USER_SCOPE, GLOBAL_SCOPE = 'u', 'g';
 local serverName = GetRealmName();
-_G.channelLastTimeMap = {};
+local channelLastTimeMap = {};
 local TIME_LIMIT = 60;
 
 -- 不能从0开始, 不知道为什么
