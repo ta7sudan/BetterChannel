@@ -5,13 +5,15 @@
 
 ## 下载
 
-[下载地址]()
+[下载地址](https://github.com/ta7sudan/BetterChannel/releases), 看不懂的点[这里](https://codeload.github.com/ta7sudan/BetterChannel/zip/v0.1.0)
 
 
 
 ## 使用方式
 
-解压到 `$WOW_HOME/_classic_/Interface/AddOns` 目录下即可.
+解压到 `$WOW_HOME/_classic_/Interface/AddOns` 目录下, 修改解压后的目录名为 `BetterChannel` 即可, 即 `BetterChannel-0.1.0` 重命名为 `BetterChannel`.
+
+
 
 ### 屏蔽用户
 
