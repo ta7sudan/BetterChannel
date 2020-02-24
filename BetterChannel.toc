@@ -2,7 +2,7 @@
 ## Title: BetterChannel
 ## Title-zhCN: 聊天频道过滤器
 ## Author: ta7sudan
-## Version: v0.1.0
+## Version: v0.1.1
 ## SavedVariables: BetterChannelGlobalDB
 ## SavedVariablesPerCharacter: BetterChannelCharacterDB
 ## Notes: Chat channel filter
