@@ -21,7 +21,7 @@ BetterChannelCharacterDB = BetterChannelCharacterDB or {
 -- };
 
 local global = select(2, ...);
-local trim, split, setTimeout = global.util.trim, global.util.split, global.util.setTimeout;
+local trim, split = global.util.trim, global.util.split;
 local USER_SCOPE, GLOBAL_SCOPE = 'u', 'g';
 local serverName = GetRealmName();
 local channelLastTimeMap = {};
@@ -157,9 +157,9 @@ function filter(chatFrame, event, msg, playerNameAndServer, arg0, channelIDAndCh
 			return true;
 		end
 		channelLastTimeMap[chatFrameName][channel][player] = GetTime();
-		setTimeout(function ()
+		C_Timer.NewTicker(1000, function ()
 			channelLastTimeMap[chatFrameName][channel][player] = nil;
-		end, 1000);
+		end, 1);
 	end
 
 	-- 用户名过滤
