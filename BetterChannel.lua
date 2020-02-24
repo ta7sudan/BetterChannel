@@ -138,19 +138,27 @@ SlashCmdList.BC_LIST_WORD = function (msg)
 end
 
 function filter(chatFrame, event, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, ...)
-	local userNameAndServer = player..'-'..serverName;
+	local userNameAndServer, chatFrameName = player..'-'..serverName, chatFrame.name;
+
+	-- 战斗记录不做过滤
+	if chatFrameName == '战斗记录' then
+		return false, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, ...;
+	end
 
 	-- 世界频道节流
-	if channelLastTimeMap[channel] == nil then
-		channelLastTimeMap[channel] = {};
+	if channelLastTimeMap[chatFrameName] == nil then
+		channelLastTimeMap[chatFrameName] = {};
+	end
+	if channelLastTimeMap[chatFrameName][channel] == nil then
+		channelLastTimeMap[chatFrameName][channel] = {};
 	end
 	if event == 'CHAT_MSG_CHANNEL' then
-		if channelLastTimeMap[channel][player] ~= nil and GetTime() - channelLastTimeMap[channel][player] < TIME_LIMIT then
+		if channelLastTimeMap[chatFrameName][channel][player] ~= nil and GetTime() - channelLastTimeMap[chatFrameName][channel][player] < TIME_LIMIT then
 			return true;
 		end
-		channelLastTimeMap[channel][player] = GetTime();
+		channelLastTimeMap[chatFrameName][channel][player] = GetTime();
 		setTimeout(function ()
-			channelLastTimeMap[channel][player] = nil;
+			channelLastTimeMap[chatFrameName][channel][player] = nil;
 		end, 1000);
 	end
 
