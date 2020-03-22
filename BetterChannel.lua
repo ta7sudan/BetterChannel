@@ -1,11 +1,13 @@
 BetterChannelGlobalDB = BetterChannelGlobalDB or {
 	blockedUsers = {},
+	blockedUserPrefix = {},
 	blockedKeywords = {},
 	blockedRegExp = {}
 };
 
 BetterChannelCharacterDB = BetterChannelCharacterDB or {
 	blockedUsers = {},
+	blockedUserPrefix = {},
 	blockedKeywords = {},
 	blockedRegExp = {}
 };
@@ -137,13 +139,18 @@ SlashCmdList.BC_LIST_WORD = function (msg)
 	end
 end
 
-function filter(chatFrame, event, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, ...)
-	local userNameAndServer, chatFrameName = player..'-'..serverName, chatFrame.name;
+function filter(chatFrame, event, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, arg3, arg4, guid, ...)
+	local userNameAndServer, chatFrameName, playerLevel = player..'-'..serverName, chatFrame.name, UnitLevel(player);
 
 	-- 战斗记录不做过滤
 	if chatFrameName == '战斗记录' then
 		return false, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, ...;
 	end
+
+	-- TODO 过滤10级以下小号
+	-- if playerLevel <= 10 then
+	-- 	return true;
+	-- end
 
 	-- 世界频道节流
 	if channelLastTimeMap[chatFrameName] == nil then
@@ -167,17 +174,19 @@ function filter(chatFrame, event, msg, playerNameAndServer, arg0, channelIDAndCh
 		return true;
 	end
 
-	-- 关键字过滤
-	for keyword, v in pairs(BetterChannelCharacterDB.blockedKeywords) do
-		local lowerCaseMsg = msg:lower();
-		if lowerCaseMsg:find(keyword:lower()) then
-			return true;
+	-- 关键字过滤, 聊天m语不做关键字过滤
+	if event ~= 'CHAT_MSG_WHISPER' then
+		for keyword, v in pairs(BetterChannelCharacterDB.blockedKeywords) do
+			local lowerCaseMsg = msg:lower();
+			if lowerCaseMsg:find(keyword:lower()) then
+				return true;
+			end
 		end
-	end
-	for keyword, v in pairs(BetterChannelGlobalDB.blockedKeywords) do
-		local lowerCaseMsg = msg:lower();
-		if lowerCaseMsg:find(keyword:lower()) then
-			return true;
+		for keyword, v in pairs(BetterChannelGlobalDB.blockedKeywords) do
+			local lowerCaseMsg = msg:lower();
+			if lowerCaseMsg:find(keyword:lower()) then
+				return true;
+			end
 		end
 	end
 
