@@ -144,7 +144,7 @@ function filter(chatFrame, event, msg, playerNameAndServer, arg0, channelIDAndCh
 
 	-- 战斗记录不做过滤
 	if chatFrameName == '战斗记录' then
-		return false, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, ...;
+		return false, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, arg3, arg4, guid, ...;
 	end
 
 	-- TODO 过滤10级以下小号
@@ -192,7 +192,7 @@ function filter(chatFrame, event, msg, playerNameAndServer, arg0, channelIDAndCh
 
 	-- TODO 正则表达式过滤 特定频道过滤 对重复添加屏蔽的关键词和用户增加友好提示
 
-	return false, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, ...;
+	return false, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, arg3, arg4, guid, ...;
 end
 
 ChatFrame_AddMessageEventFilter('CHAT_MSG_CHANNEL', filter);
