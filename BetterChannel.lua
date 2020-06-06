@@ -28,6 +28,7 @@ local USER_SCOPE, GLOBAL_SCOPE = 'u', 'g';
 local serverName = GetRealmName();
 local channelLastTimeMap = {};
 local TIME_LIMIT = 60;
+local selfName, realm = UnitName('player');
 
 -- 不能从0开始, 不知道为什么
 SLASH_BC_ADD_USER1 = '/au';
@@ -142,6 +143,11 @@ end
 function filter(chatFrame, event, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, arg3, arg4, guid, ...)
 	local userNameAndServer, chatFrameName, playerLevel = player..'-'..serverName, chatFrame.name, UnitLevel(player);
 
+	-- 自己名字不做过滤
+	if player == selfName then
+		return false, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, arg3, arg4, guid, ...;
+	end
+
 	-- 战斗记录不做过滤
 	if chatFrameName == '战斗记录' then
 		return false, msg, playerNameAndServer, arg0, channelIDAndChannel, player, arg1, arg2, channelID, channel, arg3, arg4, guid, ...;
@@ -176,6 +182,10 @@ function filter(chatFrame, event, msg, playerNameAndServer, arg0, channelIDAndCh
 
 	-- 关键字过滤, 聊天m语不做关键字过滤
 	if event ~= 'CHAT_MSG_WHISPER' then
+		-- 对非聊天m语频道中字符串长度小于10个字符的过滤掉
+		if #msg < 30 then
+			return true;
+		end
 		for keyword, v in pairs(BetterChannelCharacterDB.blockedKeywords) do
 			local lowerCaseMsg = msg:lower();
 			if lowerCaseMsg:find(keyword:lower()) then
